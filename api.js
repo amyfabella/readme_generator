@@ -13,11 +13,11 @@ const api = {
       const queryUrl = `https://api.github.com/users/${username}`;
   
       axios.get(queryUrl).then(function(res) {
-        const userImage = res.data.avatar_url;
-        const userEmail = res.data.email
+        const imageURL = res.data.avatar_url;
+        const email = res.data.email
 
-        console.log("User pic URL: " + userImage);
-        console.log("User email: " + userEmail);
+        console.log("User pic URL: " + imageURL);
+        console.log("User email: " + email);
       });
     })
   }

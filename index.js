@@ -60,6 +60,13 @@ function promptUser() {
 
 // function apiData
 // call api
+// const img = $("<img alt='profile pic'>");
+// const userEmail = $("<p></p>").$(email);
+// img.attr("src", imageURL);
+// img.append("#api");
+// userEmail.append("#api");
+
+
 
 //Function that creates README file using obtained information and template
 async function init() {
@@ -67,7 +74,7 @@ async function init() {
         const data = await promptUser();
 
         // const apiData = await apiData();
-        // update html to generatreMarkdown(data, apiData)
+        // update html to generateMarkdown(data, apiData)
     
         const html = generateMarkdown(data);
     
