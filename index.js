@@ -1,6 +1,6 @@
 const generateMarkdown = require("./generateMarkdown");
-// const api = require("./api");
 const inquirer = require("inquirer");
+const axios = require("axios");
 const fs = require("fs");
 const util = require("util");
 
@@ -58,29 +58,50 @@ function promptUser() {
         ])
 }
 
-// function apiData
-// call api
-// const img = $("<img alt='profile pic'>");
-// const userEmail = $("<p></p>").$(email);
-// img.attr("src", imageURL);
-// img.append("#api");
-// userEmail.append("#api");
+//Obtaining GitHub info to add to README file
+function writeToFile() {
+  inquirer
+  .prompt({
+    message: "Enter your GitHub username:",
+    name: "username"
+  })
+  .then(function({ username }) {
+    const queryUrl = `https://api.github.com/users/${username}`;
 
+    axios.get(queryUrl).then(function(res) {
+      const imageURL = res.data.avatar_url;
+      const email = res.data.email
 
+      const apiSnippet = `
+      Here is my face: ${imageURL}
+      Here is my email: ${email}`
+      
+      fs.appendFile("readme.txt", apiSnippet, function(err) {
+
+        if (err) {
+          console.log(err);
+        }
+        else {
+          console.log("Successfully added GitHub Info!");
+        }
+      
+      });
+    });
+  })
+}
 
 //Function that creates README file using obtained information and template
 async function init() {
     try {
         const data = await promptUser();
+    
+        const txt = generateMarkdown(data);
+    
+        await writeFileAsync("readme.txt", txt);
+    
+        console.log("Successfully wrote to readme.txt");
 
-        // const apiData = await apiData();
-        // update html to generateMarkdown(data, apiData)
-    
-        const html = generateMarkdown(data);
-    
-        await writeFileAsync("index.html", html);
-    
-        console.log("Successfully wrote to index.html");
+        await writeToFile();
     } 
     catch(err) {
         console.log(err);
