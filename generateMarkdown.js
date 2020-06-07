@@ -1,5 +1,6 @@
+//Template for index.html file to be created
 function generateMarkdown(data) {
-  //add email, photo, badge specific to repo
+//update to generateMarkdown(data, apiData) and insert ${apiData} to $("#api")
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +28,8 @@ function generateMarkdown(data) {
     <p>${data.tests}</p>
     <h9>## Questions</h9>
     <p>${data.questions}</p>
+    <h9>## Contact</h9>
+    <div id="api"></div> 
   </div>
 </body>
 </html>`;

@@ -1,13 +1,15 @@
-// const api = require("./api");
 const generateMarkdown = require("./generateMarkdown");
-// const axios = require("axios");
+// const api = require("./api");
 const inquirer = require("inquirer");
 const fs = require("fs");
+const util = require("util");
 
-const writeFileAsync = util.promisify(fs.writeFile);
+const writeFileAsync = util.promisify(fs.writeFile); 
 
+//Obtaining info provided by user for README file
 function promptUser() {
-    return inquirer.prompt([
+    return inquirer
+        .prompt([
         {
             type: "input",
             name: "title",
@@ -53,47 +55,30 @@ function promptUser() {
             name: "questions",
             message: "Enter any questions."
           }
-    ]);
+        ])
 }
 
-// function writeToFile(fileName, data) {
-//     fs.writeFile(fileName, data, function(err) {
-//         if (err) {
-//           throw err;
-//         }
-// });
+// function apiData
+// call api
 
-//add email, photo, badge specific to repo
-
-function init() {
+//Function that creates README file using obtained information and template
+async function init() {
     try {
         const data = await promptUser();
+
+        // const apiData = await apiData();
+        // update html to generatreMarkdown(data, apiData)
     
         const html = generateMarkdown(data);
     
         await writeFileAsync("index.html", html);
     
         console.log("Successfully wrote to index.html");
-      } catch(err) {
+    } 
+    catch(err) {
         console.log(err);
-      }
+    }
 }
 
+//Calling function to create file
 init();
-
-// * The generated README includes a bio image from the user's GitHub profile.
-
-// * The generated README includes the user's email.
-
-// * The generated README includes the following sections: 
-//   * Title
-//   * Description
-//   * Table of Contents
-//   * Installation
-//   * Usage
-//   * License
-//   * Contributing
-//   * Tests
-//   * Questions
-
-// * The generated README includes 1 badge that's specific to the repository.
